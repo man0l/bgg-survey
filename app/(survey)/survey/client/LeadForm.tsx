@@ -56,7 +56,7 @@ export default function LeadForm({ score, pillarScores }: { score: number; pilla
         <label className="block text-sm font-medium mb-1">Company</label>
         <Input value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} required />
       </div>
-      <Button type="submit" className="w-full py-3">See What's Slowing You Down</Button>
+      <Button type="submit" className="w-full py-3">See What&#39;s Slowing You Down</Button>
     </form>
   );
 }

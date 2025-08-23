@@ -183,7 +183,7 @@ export default function ResultsPage() {
               </div>
 
               <div className="mt-8 text-center">
-                <Button onClick={() => setActiveTab('report')} className="py-4 px-8">See What's Slowing You Down</Button>
+                <Button onClick={() => setActiveTab('report')} className="py-4 px-8">See What&#39;s Slowing You Down</Button>
                 <p className="text-xs text-gray-500 mt-2">Receive specific action steps for each pillar</p>
               </div>
             </div>
