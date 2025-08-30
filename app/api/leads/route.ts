@@ -17,7 +17,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: 'Invalid input' }, { status: 400 });
     }
 
-    // TODO: integrate with CRM/email/DB
+    const webhookUrl = process.env.ZAPIER_LEADS_WEBHOOK_URL || 'https://hooks.zapier.com/hooks/catch/4829688/uhkbkrs/';
+    const zapierRes = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(parsed.data),
+    });
+
+    if (!zapierRes.ok) {
+      return NextResponse.json({ ok: false, error: 'Upstream webhook error' }, { status: 502 });
+    }
+
     return NextResponse.json({ ok: true });
   } catch (e) {
     return NextResponse.json({ ok: false }, { status: 500 });
