@@ -9,10 +9,12 @@ const Schema = z.object({
   name: z.string().min(2, 'Enter your full name'),
   email: z.string().email('Enter a valid email'),
   company: z.string().min(2, 'Enter your company name'),
+  monthlyRevenue: z.string().optional(),
+  biggestChallenge: z.string().optional(),
 });
 
 export default function LeadForm({ score, pillarScores }: { score: number; pillarScores: unknown }) {
-  const [form, setForm] = useState({ name: '', email: '', company: '' });
+  const [form, setForm] = useState({ name: '', email: '', company: '', monthlyRevenue: '', biggestChallenge: '' });
   const [error, setError] = useState<string | null>(null);
   const [ok, setOk] = useState(false);
 
@@ -55,6 +57,19 @@ export default function LeadForm({ score, pillarScores }: { score: number; pilla
       <div>
         <label className="block text-sm font-medium mb-1">Company</label>
         <Input value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} required />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">What’s your monthly revenue?</label>
+        <Input value={form.monthlyRevenue} onChange={(e) => setForm({ ...form, monthlyRevenue: e.target.value })} placeholder="e.g. $50k" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">What’s your biggest challenge in your own words?</label>
+        <textarea
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+          rows={4}
+          value={form.biggestChallenge}
+          onChange={(e) => setForm({ ...form, biggestChallenge: e.target.value })}
+        />
       </div>
       <Button type="submit" className="w-full py-3">See What&#39;s Slowing You Down</Button>
     </form>
