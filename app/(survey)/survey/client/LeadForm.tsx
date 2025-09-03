@@ -4,19 +4,20 @@ import React, { useState } from 'react';
 import { z } from 'zod';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
+import { useSurvey } from '@/hooks/SurveyProvider';
 
 const Schema = z.object({
   name: z.string().min(2, 'Enter your full name'),
   email: z.string().email('Enter a valid email'),
   company: z.string().min(2, 'Enter your company name'),
-  monthlyRevenue: z.string().optional(),
-  biggestChallenge: z.string().optional(),
+  // Removed extra questions; captured within the assessment itself
 });
 
 export default function LeadForm({ score, pillarScores }: { score: number; pillarScores: unknown }) {
-  const [form, setForm] = useState({ name: '', email: '', company: '', monthlyRevenue: '', biggestChallenge: '' });
+  const [form, setForm] = useState({ name: '', email: '', company: '' });
   const [error, setError] = useState<string | null>(null);
   const [ok, setOk] = useState(false);
+  const { state, markLeadSubmitted } = useSurvey();
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,19 +28,29 @@ export default function LeadForm({ score, pillarScores }: { score: number; pilla
       setError(first);
       return;
     }
+    const monthlyRevenue = (state.answers['q14'] as string | number | undefined) ?? '';
+    const biggestChallenge = (state.answers['q15'] as string | number | undefined) ?? '';
+
     const res = await fetch('/api/leads', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...form, score, pillarScores }),
+      body: JSON.stringify({
+        ...form,
+        score,
+        pillarScores,
+        monthlyRevenue: String(monthlyRevenue),
+        biggestChallenge: String(biggestChallenge),
+      }),
     });
     if (!res.ok) {
       setError('Submission failed. Please try again.');
       return;
     }
     setOk(true);
+    markLeadSubmitted();
   };
 
-  if (ok) {
+  if (ok || state.leadSubmitted) {
     return <div className="text-center text-green-700">Thanks! We will send your report shortly.</div>;
   }
 
@@ -58,19 +69,7 @@ export default function LeadForm({ score, pillarScores }: { score: number; pilla
         <label className="block text-sm font-medium mb-1">Company</label>
         <Input value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} required />
       </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">What’s your monthly revenue?</label>
-        <Input value={form.monthlyRevenue} onChange={(e) => setForm({ ...form, monthlyRevenue: e.target.value })} placeholder="e.g. $50k" />
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">What’s your biggest challenge in your own words?</label>
-        <textarea
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-          rows={4}
-          value={form.biggestChallenge}
-          onChange={(e) => setForm({ ...form, biggestChallenge: e.target.value })}
-        />
-      </div>
+      {/* Extra qualification questions moved into the assessment */}
       <Button type="submit" className="w-full py-3">Get a Full, Custom Report</Button>
     </form>
   );

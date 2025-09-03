@@ -54,6 +54,31 @@ export default function SurveyRunner({ questions = defaultQuestions }: Props) {
 
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-gray-800 leading-tight mb-6">{current.question}</h2>
+            {/* Render input question if no options are provided */}
+            {!current.options ? (
+              <div className="space-y-4">
+                {current.input?.multiline ? (
+                  <textarea
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    placeholder={current.input?.placeholder}
+                    rows={4}
+                    value={(state.answers[current.id] as string) ?? ''}
+                    onChange={(e) => selectAnswer(current.id, e.target.value as unknown as number)}
+                  />
+                ) : (
+                  <input
+                    type={current.input?.kind === 'number' ? 'text' : 'text'}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    placeholder={current.input?.placeholder}
+                    value={(state.answers[current.id] as string) ?? ''}
+                    onChange={(e) => selectAnswer(current.id, e.target.value as unknown as number)}
+                  />
+                )}
+                <div className="flex justify-end">
+                  <Button onClick={isLast ? goResults : next} className="px-6 py-3">Continue</Button>
+                </div>
+              </div>
+            ) : (
             <div className="space-y-3">
               {current.options.map((opt) => {
                 const selected = state.answers[current.id] === opt.value;
@@ -81,6 +106,7 @@ export default function SurveyRunner({ questions = defaultQuestions }: Props) {
                 );
               })}
             </div>
+            )}
           </div>
         </div>
       </div>

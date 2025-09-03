@@ -183,6 +183,21 @@ export const questions: Question[] = [
       { value: 5, text: 'Clear roadmap, tracked adoption, measurable results', letter: 'E' },
     ],
   },
+  // Scale readiness questions moved from lead form into assessment (last pillar)
+  {
+    id: 'q14',
+    title: 'Scale Readiness',
+    pillar: 'automation',
+    question: "What’s your monthly revenue?",
+    input: { kind: 'text', placeholder: 'e.g. $50k' },
+  },
+  {
+    id: 'q15',
+    title: 'Scale Readiness',
+    pillar: 'automation',
+    question: "What’s your biggest challenge in your own words?",
+    input: { kind: 'text', multiline: true, placeholder: 'Describe your biggest challenge' },
+  },
 ];
 
 

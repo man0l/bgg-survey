@@ -2,9 +2,13 @@ import type { AnswerMap, PillarScores, Question, PillarKey } from '../types/surv
 
 export function calculateScore(answers: AnswerMap, questions: Question[]) {
   const totalScore = Object.values(answers).reduce<number>((sum, value) => {
-    return sum + (value ?? 0);
+    // Only numeric answers contribute to the score
+    const numeric = typeof value === 'number' ? value : 0;
+    return sum + numeric;
   }, 0);
-  const percentage = Math.round((totalScore / (questions.length * 5)) * 100);
+  const scorableCount = questions.filter((q) => Array.isArray(q.options) && q.options.length > 0).length;
+  const denominator = Math.max(1, scorableCount * 5);
+  const percentage = Math.round((totalScore / denominator) * 100);
   return { totalScore, percentage };
 }
 
@@ -15,14 +19,19 @@ export function calculatePillarScores(
   const pillarQuestions: Record<string, string[]> = {};
   for (const q of questions) {
     if (!pillarQuestions[q.pillar]) pillarQuestions[q.pillar] = [];
-    pillarQuestions[q.pillar].push(q.id);
+    if (Array.isArray(q.options) && q.options.length > 0) {
+      pillarQuestions[q.pillar].push(q.id);
+    }
   }
 
   const scores: Partial<PillarScores> = {};
   Object.keys(pillarQuestions).forEach((pillarKey) => {
     const pillar = pillarKey as PillarKey;
     const ids = pillarQuestions[pillar]!;
-    const vals = ids.map((id) => (answers as Record<string, number | undefined>)[id] ?? 0);
+    const vals = ids.map((id) => {
+      const v = (answers as Record<string, number | string | undefined>)[id];
+      return typeof v === 'number' ? v : 0;
+    });
     const score = vals.reduce((s, v) => s + v, 0);
     const maxScore = ids.length * 5;
     const percentage = Math.round((score / maxScore) * 100);

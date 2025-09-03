@@ -19,10 +19,13 @@ export interface Question {
   title: string;
   pillar: PillarKey;
   question: string;
-  options: QuestionOption[];
+  // Multiple-choice questions use options. If omitted, this question is considered an input question.
+  options?: QuestionOption[];
+  // For input questions (free text or numeric)
+  input?: { kind: 'text' | 'number'; placeholder?: string; multiline?: boolean };
 }
 
-export type AnswerMap = Partial<Record<Question['id'], OptionValue>>;
+export type AnswerMap = Partial<Record<Question['id'], OptionValue | string>>;
 
 export interface PillarScore {
   score: number;

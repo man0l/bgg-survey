@@ -7,6 +7,8 @@ const LeadSchema = z.object({
   company: z.string().min(2),
   score: z.number().int().nonnegative(),
   pillarScores: z.record(z.string(), z.any()),
+  monthlyRevenue: z.string().optional(),
+  biggestChallenge: z.string().optional(),
 });
 
 export async function POST(req: Request) {
