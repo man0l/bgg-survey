@@ -48,7 +48,7 @@ export default function SurveyRunner({ questions = defaultQuestions }: Props) {
               <span>{Math.round(((state.step + 1) / questions.length) * 100)}%</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(((state.step + 1) / questions.length) * 100)}>
-              <div className="bg-blue-600 h-2 rounded-full transition-all duration-300" style={{ width: `${((state.step + 1) / questions.length) * 100}%` }} />
+              <div className="h-2 rounded-full transition-all duration-300 bg-[#ec4899]" style={{ width: `${((state.step + 1) / questions.length) * 100}%` }} />
             </div>
           </div>
 
