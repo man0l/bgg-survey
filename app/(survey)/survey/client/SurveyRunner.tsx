@@ -82,13 +82,6 @@ export default function SurveyRunner({ questions = defaultQuestions }: Props) {
               })}
             </div>
           </div>
-
-          <div className="flex justify-center">
-            <Button onClick={() => (isLast ? goResults() : next())} disabled={!state.answers[current.id]} className="px-8 py-3 rounded-full">
-              {isLast ? 'Finish' : 'Next'}
-              <ChevronRight className="w-5 h-5 ml-2" />
-            </Button>
-          </div>
         </div>
       </div>
     </div>
