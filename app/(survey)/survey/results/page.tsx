@@ -21,8 +21,8 @@ export default function ResultsPage() {
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl">
         <div className="px-8 py-10">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Your OPSCORE™ Results</h1>
-            <p className="text-gray-600">Based on your responses, we’ve analyzed your agency’s operational maturity</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">Your OPSCORE™ Agency Scale Readiness Report</h1>
+            <p className="text-gray-600">Based on your responses, we’ve analyzed your agency’s scale readiness</p>
           </div>
 
           <div className="bg-white border border-gray-200 rounded-xl p-8 mb-8 max-w-2xl mx-auto">
@@ -64,7 +64,7 @@ export default function ResultsPage() {
                   ? 'Good foundation in place with room for automation and optimization.'
                   : percentage <= 85
                   ? 'Well-optimized operations with strong systems and processes.'
-                  : 'Excellent operational maturity with AI-enabled scalable systems.'}
+                  : 'Excellent operations with AI-enabled scalable systems.'}
               </p>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function ResultsPage() {
                       activeTab === 'report' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
-                    Get Full Report
+                    Full, Custom Report
                   </button>
                   <button
                     onClick={() => setActiveTab('categories')}
@@ -103,10 +103,10 @@ export default function ResultsPage() {
 
           {hasAnswers && (activeTab === 'report' ? (
             <div className="bg-gray-50 rounded-xl p-8 max-w-3xl mx-auto">
-              <h2 className="text-2xl font-semibold mb-2">Get Your Detailed OPSCORE™ Report</h2>
-              <p className="text-gray-600 mb-6">Enter your details to receive a comprehensive report with personalized recommendations</p>
+              <h2 className="text-2xl font-semibold mb-2">Your OPSCORE™ Agency Scale Readiness Report</h2>
+              <p className="text-gray-600 mb-6">We’ll email you a copy of your report and provide strategic recommendations tailored to your agency business.</p>
               <LeadForm score={percentage} pillarScores={pillarScores} />
-              <p className="text-xs text-gray-500 text-center mt-4">We’ll email you a copy of your report and provide recommendations tailored to your organization’s needs.</p>
+              <p className="text-xs text-gray-500 text-center mt-4">We’ll email you a copy of your report and provide strategic recommendations tailored to your agency business.</p>
             </div>
           ) : (
             <div className="bg-gray-50 rounded-xl p-8 max-w-4xl mx-auto">

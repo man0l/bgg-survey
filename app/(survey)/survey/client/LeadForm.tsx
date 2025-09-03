@@ -71,7 +71,7 @@ export default function LeadForm({ score, pillarScores }: { score: number; pilla
           onChange={(e) => setForm({ ...form, biggestChallenge: e.target.value })}
         />
       </div>
-      <Button type="submit" className="w-full py-3">See What&#39;s Slowing You Down</Button>
+      <Button type="submit" className="w-full py-3">Get a Full, Custom Report</Button>
     </form>
   );
 }
