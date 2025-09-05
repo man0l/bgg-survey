@@ -7,7 +7,7 @@ export default function Landing() {
     <main className="min-h-screen bg-white flex items-center justify-center p-6">
       <div className="max-w-3xl w-full text-center">
         <div className="mb-6 flex justify-center">
-          <Image src="/globe.svg" alt="Big Growth Group logo" width={48} height={48} />
+          <Image src="/bgg-logo-black.png" alt="Big Growth Group logo" width={48} height={48} />
         </div>
         <p className="text-sm font-semibold tracking-wide text-indigo-600 uppercase mb-2">
           Your OPSCORE™ Agency Scale Readiness Assessment
