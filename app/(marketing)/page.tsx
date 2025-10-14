@@ -14,16 +14,12 @@ export default function Landing() {
         </p>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           What’s Actually Holding You Back…
-        </h1>
-        <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-          This isn’t a fluff quiz. It’s a strategic breakdown of what’s stopping your agency
-          from scaling without depending on the founder.
-        </p>
+        </h1>       
 
         <div className="mx-auto max-w-3xl">
           <div className="rounded-xl border border-gray-200 bg-gray-50 p-2 shadow-sm">
             <div className="aspect-video relative overflow-hidden rounded-lg bg-black/70 flex items-center justify-center">
-              <div className="text-white/80 text-sm">[2 min VSL]</div>
+            <iframe src="https://fast.wistia.net/embed/iframe/6miebx0b0k" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" width="640" height="360"></iframe>
             </div>
           </div>
         </div>

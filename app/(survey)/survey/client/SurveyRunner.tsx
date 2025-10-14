@@ -19,6 +19,14 @@ export default function SurveyRunner({ questions = defaultQuestions }: Props) {
   const isLast = state.step === questions.length - 1;
   const router = useRouter();
 
+  const valueEmoji: Record<number, string> = {
+    5: '5️⃣',
+    4: '4️⃣',
+    3: '3️⃣',
+    2: '2️⃣',
+    1: '1️⃣',
+  };
+
   useMemo(() => calculateScore(state.answers, questions), [state.answers, questions]);
   useMemo(() => calculatePillarScores(state.answers, questions), [state.answers, questions]);
 
@@ -80,7 +88,7 @@ export default function SurveyRunner({ questions = defaultQuestions }: Props) {
               </div>
             ) : (
             <div className="space-y-3">
-              {current.options.map((opt) => {
+              {[...current.options].sort((a, b) => b.value - a.value).map((opt) => {
                 const selected = state.answers[current.id] === opt.value;
                 const handleSelect = () => {
                   selectAnswer(current.id, opt.value);
@@ -99,7 +107,7 @@ export default function SurveyRunner({ questions = defaultQuestions }: Props) {
                     }`}
                   >
                     <div className="flex items-center">
-                      <span className="w-8 h-8 bg-gray-100 text-gray-600 rounded-md flex items-center justify-center text-sm font-bold mr-3 transition-transform duration-300 group-hover:scale-110">{opt.letter}</span>
+                      <span className="w-8 h-8 bg-gray-100 text-gray-600 rounded-md flex items-center justify-center text-sm font-bold mr-3 transition-transform duration-300 group-hover:scale-110">{valueEmoji[opt.value]}</span>
                       <span className="text-sm font-medium text-gray-800 leading-tight">{opt.text}</span>
                     </div>
                   </button>
