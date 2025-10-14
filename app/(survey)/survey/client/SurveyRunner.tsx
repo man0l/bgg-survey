@@ -9,6 +9,7 @@ import type { Question } from '@/types/survey';
 import { calculatePillarScores, calculateScore } from '@/lib/scoring';
 import { useSurvey } from '@/hooks/SurveyProvider';
 import Button from '@/components/ui/Button';
+import { pillars } from '@/data/pillars';
 
 interface Props { questions?: Question[] }
 
@@ -46,7 +47,7 @@ export default function SurveyRunner({ questions = defaultQuestions }: Props) {
             <Button onClick={back} variant="secondary" className="p-2 rounded-full" aria-label="Back">
               <ChevronLeft className="w-5 h-5" />
             </Button>
-            <h1 className="text-lg font-semibold text-center px-2">{current.title}</h1>
+            <h1 className="text-lg font-semibold text-center px-2">{pillars[current.pillar].name}</h1>
             <div className="w-9" />
           </div>
 
